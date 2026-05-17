@@ -8,17 +8,19 @@
 /* ========================================= */
 :root {
     /* Light Mode Colors */
-    --bg-primary: #f8f9fa;
+    --bg-primary: #eef2ff;
     --bg-secondary: #ffffff;
     --bg-card: #ffffff;
-    --text-primary: #2d3748;
-    --text-secondary: #718096;
-    --accent-color: #667eea;
-    --accent-hover: #5a67d8;
-    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.12);
-    --border-color: #e2e8f0;
-    --card-border: #edf2f7;
+    --bg-header: rgba(255, 255, 255, 0.95);
+    --text-primary: #1f2937;
+    --text-secondary: #556672;
+    --accent-color: #4f46e5;
+    --accent-hover: #4338ca;
+    --accent-soft: #eef2ff;
+    --shadow-light: 0 16px 40px rgba(79, 70, 229, 0.12);
+    --shadow-medium: 0 24px 60px rgba(79, 70, 229, 0.16);
+    --border-color: #dbe4ff;
+    --card-border: #e5e9ff;
 }
 
 /* ========================================= */
@@ -26,17 +28,19 @@
 /* Applied when body has class "dark-mode" */
 /* ========================================= */
 body.dark-mode {
-    --bg-primary: #1a202c;
-    --bg-secondary: #2d3748;
-    --bg-card: #2d3748;
-    --text-primary: #f7fafc;
-    --text-secondary: #a0aec0;
+    --bg-primary: #111827;
+    --bg-secondary: #111827;
+    --bg-card: #1f2937;
+    --bg-header: rgba(17, 24, 39, 0.95);
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
     --accent-color: #7c3aed;
     --accent-hover: #6d28d9;
-    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.4);
-    --border-color: #4a5568;
-    --card-border: #4a5568;
+    --accent-soft: rgba(124, 58, 237, 0.12);
+    --shadow-light: 0 16px 40px rgba(0, 0, 0, 0.35);
+    --shadow-medium: 0 24px 60px rgba(0, 0, 0, 0.45);
+    --border-color: #374151;
+    --card-border: #334155;
 }
 
 /* ========================================= */
@@ -48,40 +52,40 @@ body.dark-mode {
     box-sizing: border-box;
 }
 
-/* ========================================= */
-/* Font Selection Rationale: */
-/* We use "Poppins" from Google Fonts */
-/* Why: It's a modern, geometric sans-serif */
-/* Benefits: Good readability, friendly appearance, */
-/* works well for both headings and body text */
-/* ========================================= */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--bg-primary);
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.12), transparent 32%),
+                radial-gradient(circle at bottom right, rgba(99, 102, 241, 0.18), transparent 28%),
+                var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    /* Smooth transition for dark mode switching */
+    transition: background 0.4s ease, color 0.4s ease;
 }
 
 /* ========================================= */
 /* Container - Limits width for better readability */
 .container {
-    max-width: 1200px;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
 }
 
 /* ========================================= */
 /* HEADER STYLES */
 /* ========================================= */
 .header {
-    background-color: var(--bg-secondary);
-    padding: 20px 0;
+    background-color: var(--bg-header);
+    padding: 22px 0;
     box-shadow: var(--shadow-light);
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(14px);
     transition: background-color 0.3s ease;
 }
 
@@ -90,14 +94,27 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 18px;
+}
+
+.brand-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .site-title {
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-size: 1.95rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     color: var(--accent-color);
     transition: color 0.3s ease;
+}
+
+.site-tagline {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+    max-width: 420px;
 }
 
 .header-controls {
@@ -110,21 +127,21 @@ body {
 /* Dark Mode Button */
 /* Circular button with emoji icon */
 .dark-mode-btn {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-secondary);
     border: 2px solid var(--border-color);
     border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
 
 .dark-mode-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.06);
     border-color: var(--accent-color);
 }
 
@@ -132,59 +149,96 @@ body {
 /* Contributor Counter */
 /* Shows how many students have contributed */
 .contributor-counter {
-    background-color: var(--bg-primary);
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    background-color: var(--bg-card);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 0.95rem;
     display: flex;
     align-items: center;
-    gap: 8px;
-    transition: background-color 0.3s ease;
+    gap: 10px;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .counter-number {
-    font-weight: 700;
+    font-weight: 800;
     color: var(--accent-color);
-    font-size: 1.1rem;
+    font-size: 1.12rem;
 }
 
 /* ========================================= */
 /* Hero Section */
 /* Large welcome message at top */
 .hero {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.95), rgba(99, 102, 241, 0.95));
     color: white;
-    padding: 60px 0;
+    padding: 72px 0 58px;
     text-align: center;
     transition: background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.16), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(255,255,255,0.12), transparent 28%);
+    pointer-events: none;
 }
 
 .hero h2 {
-    font-size: 2.2rem;
+    position: relative;
+    font-size: clamp(2rem, 4vw, 3.2rem);
     margin-bottom: 15px;
-    font-weight: 700;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
 }
 
 .hero-text {
+    position: relative;
     font-size: 1.1rem;
     opacity: 0.95;
-    max-width: 600px;
+    max-width: 640px;
     margin: 0 auto;
+    line-height: 1.8;
+}
+
+.hero-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    margin-top: 30px;
+    background-color: rgba(255, 255, 255, 0.98);
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 999px;
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.16);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.24);
 }
 
 /* ========================================= */
 /* Cards Section */
 /* ========================================= */
 .cards-section {
-    padding: 50px 0;
+    padding: 58px 0;
 }
 
 .section-title {
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 40px;
     color: var(--text-primary);
-    transition: color 0.3s ease;
 }
 
 /* ========================================= */
@@ -194,25 +248,34 @@ body {
 .cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    gap: 26px;
 }
 
 /* ========================================= */
 /* Student Card Styles */
 /* Each student's card has hover effects */
 .student-card {
-    background-color: var(--bg-card);
-    border: 2px solid var(--card-border);
-    border-radius: 16px;
-    padding: 25px;
+    background: linear-gradient(180deg, var(--bg-card), var(--bg-secondary));
+    border: 1px solid var(--card-border);
+    border-radius: 28px;
+    padding: 32px;
     box-shadow: var(--shadow-light);
-    transition: all 0.3s ease;
-    /* Smooth transition for hover effects */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* ========================================= */
-/* Hover Effects on Cards */
-/* When mouse hovers over card, it lifts up */
+.student-card::before {
+    content: '';
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    top: -26px;
+    right: -30px;
+    background: var(--accent-soft);
+}
+
 .student-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-medium);
@@ -220,16 +283,15 @@ body {
 }
 
 .student-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
+    font-size: 1.45rem;
+    margin-bottom: 14px;
     color: var(--text-primary);
-    transition: color 0.3s ease;
 }
 
 .student-card p {
     color: var(--text-secondary);
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
+    font-size: 1rem;
+    line-height: 1.85;
 }
 
 /* ========================================= */
@@ -237,8 +299,7 @@ body {
 /* ========================================= */
 .github-guide {
     background-color: var(--bg-secondary);
-    padding: 60px 0;
-    transition: background-color 0.3s ease;
+    padding: 60px 0 72px;
 }
 
 .guide-intro {
@@ -246,6 +307,9 @@ body {
     color: var(--text-secondary);
     margin-bottom: 40px;
     font-size: 1.05rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ========================================= */
@@ -254,7 +318,7 @@ body {
 .steps-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    gap: 24px;
 }
 
 /* ========================================= */
@@ -262,56 +326,66 @@ body {
 /* Each GitHub step has its own card */
 .step-card {
     background-color: var(--bg-card);
-    border: 2px solid var(--card-border);
-    border-radius: 16px;
-    padding: 25px;
+    border: 1px solid var(--card-border);
+    border-radius: 26px;
+    padding: 32px;
     box-shadow: var(--shadow-light);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-card::before {
+    content: '';
+    position: absolute;
+    height: 6px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
 }
 
 .step-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-medium);
 }
 
 .step-number {
     background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
     color: white;
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
     font-size: 1.1rem;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 }
 
 .step-card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 12px;
+    font-size: 1.18rem;
+    margin-bottom: 14px;
     color: var(--text-primary);
-    transition: color 0.3s ease;
 }
 
 .step-card p {
     color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.7;
+    font-size: 0.98rem;
+    line-height: 1.75;
 }
 
 /* ========================================= */
 /* Code Snippets */
 /* Inline code styling */
 code {
-    background-color: var(--bg-primary);
-    padding: 4px 10px;
-    border-radius: 6px;
+    background-color: var(--accent-soft);
+    padding: 6px 10px;
+    border-radius: 8px;
     font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--accent-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ========================================= */
@@ -320,9 +394,9 @@ code {
 .footer {
     background-color: var(--bg-secondary);
     text-align: center;
-    padding: 30px 0;
+    padding: 32px 0;
     color: var(--text-secondary);
-    transition: background-color 0.3s ease;
+    border-top: 1px solid var(--card-border);
 }
 
 /* ========================================= */
@@ -338,18 +412,19 @@ code {
         font-size: 1.5rem;
     }
 
+    .hero {
+        padding: 54px 0 48px;
+    }
+
     .hero h2 {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 
     .hero-text {
         font-size: 1rem;
     }
 
-    .cards-container {
-        grid-template-columns: 1fr;
-    }
-
+    .cards-container,
     .steps-container {
         grid-template-columns: 1fr;
     }
@@ -357,11 +432,11 @@ code {
 
 @media (max-width: 480px) {
     .header {
-        padding: 15px 0;
+        padding: 16px 0;
     }
 
     .site-title {
-        font-size: 1.3rem;
+        font-size: 1.35rem;
     }
 
     .hero {
@@ -369,6 +444,11 @@ code {
     }
 
     .hero h2 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
+    }
+
+    .hero-button {
+        width: 100%;
+        padding: 16px 0;
     }
 }
